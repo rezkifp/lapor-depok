@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+!.env.dev.example
+api/.env
+uploads/
+web/dist/
+web/node_modules/
+web/.vite/
+__pycache__/
+*.pyc
+.pytest_cache/
+api/.venv/
+.DS_Store

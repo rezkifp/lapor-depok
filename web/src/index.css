@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Design tokens (AGENTS.md bagian 4). `@theme static` memaksa semua token
+   ikut di-emit sebagai CSS variable, termasuk yang belum dipakai komponen. */
+@theme static {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  --color-navy: #0b2a5b;
+  --color-blue: #1d5fd1;
+  --color-gold: #f2b705;
+  --color-surface: #f5f8fc;
+  --color-footer: #071b3f;
+  --color-line: #dce4f0;
+  --color-ink: #14213d;
+  --color-muted: #4a5b7c;
+
+  /* Chip status: latar / teks */
+  --color-status-diterima-bg: #e8ecf3;
+  --color-status-diterima-fg: #3a4660;
+  --color-status-diverifikasi-bg: #ddebff;
+  --color-status-diverifikasi-fg: #0b3b8f;
+  --color-status-diproses-bg: #fff1bf;
+  --color-status-diproses-fg: #6b4e00;
+  --color-status-selesai-bg: #d8f3e1;
+  --color-status-selesai-fg: #0e5b2b;
+  --color-status-ditolak-bg: #ffe0e0;
+  --color-status-ditolak-fg: #8a1c1c;
+
+  --radius-card: 14px;
+  --radius-btn: 10px;
+
+  /* Tinggi minimum tombol 44px -> utility min-h-control */
+  --spacing-control: 44px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface font-sans text-ink antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+
+  .field-input {
+    @apply min-h-control w-full rounded-btn border border-line bg-white px-4 text-sm text-ink transition placeholder:text-muted/60 focus:border-blue focus:outline-none focus:ring-2 focus:ring-blue/15 disabled:cursor-not-allowed disabled:bg-surface disabled:text-muted;
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-control items-center justify-center gap-2 rounded-btn bg-gold px-6 text-sm font-bold text-navy transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-outline {
+    @apply inline-flex min-h-control items-center justify-center gap-2 rounded-btn border border-navy px-6 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .card {
+    @apply rounded-card border border-line bg-white;
+  }
+
+  .link {
+    @apply font-medium text-blue underline underline-offset-2 hover:text-navy;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold;
+  }
+}

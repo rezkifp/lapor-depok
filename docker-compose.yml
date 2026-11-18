@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: lapor
+      POSTGRES_PASSWORD: lapor
+      POSTGRES_DB: lapor
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lapor -d lapor"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: ./api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_ENV: development
+      DATABASE_URL: postgresql://lapor:lapor@db:5432/lapor
+      JWT_SECRET: dev-jwt-secret-ubah-jika-perlu
+      NIK_ENC_KEY: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
+      NIK_HASH_PEPPER: dev-pepper-ubah-jika-perlu
+      UPLOAD_DIR: /data/uploads
+      APP_BASE_URL: http://localhost:5173
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads:/data/uploads
+
+volumes:
+  pgdata:
+  uploads:
